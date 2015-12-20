@@ -33,7 +33,18 @@ public class CarController : MonoBehaviour {
             //            GetComponent<ConstantForce>().relativeForce = Vector3.zero;
         }
 
-        if(Input.GetKey(KeyCode.A))
+        if(Input.GetKey(KeyCode.S))
+        {
+            BackLeftWheel.brakeTorque = 90f;
+            BackRightWheel.brakeTorque = 90f;
+        }
+        else
+        {
+            BackLeftWheel.brakeTorque = 0f;
+            BackRightWheel.brakeTorque = 0f;
+        }
+
+        if (Input.GetKey(KeyCode.A))
         {
             FrontLeftWheel.steerAngle = -SteeringAngle;
             FrontRightWheel.steerAngle = -SteeringAngle;
@@ -71,6 +82,11 @@ public class CarController : MonoBehaviour {
 
     void FixCar()
     {
+        GetComponent<Rigidbody>().isKinematic = true;
+        transform.position += (Vector3.up*2);
         transform.localRotation = Quaternion.Euler(0f, transform.localRotation.eulerAngles.y, 0f);
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().isKinematic = false;
+
     }
 }
