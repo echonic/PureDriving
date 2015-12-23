@@ -15,7 +15,7 @@ public class CarController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        FixCar();
 	}
 	
 	// Update is called once per frame
@@ -82,8 +82,9 @@ public class CarController : MonoBehaviour {
 
     void FixCar()
     {
+        
         GetComponent<Rigidbody>().isKinematic = true;
-        transform.position += (Vector3.up*2);
+        transform.position = new Vector3(transform.position.x, GameManager.instance.activeTerrain.SampleHeight(transform.position)+1, transform.position.z);
         transform.localRotation = Quaternion.Euler(0f, transform.localRotation.eulerAngles.y, 0f);
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().isKinematic = false;
